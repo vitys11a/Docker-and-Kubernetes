@@ -1,8 +1,0 @@
-Task 1
-docker run -d -p 8080:80 nginx
-
-Task 2
-for ($i=1; $i -le 10; $i++) { $port=8079+$i; docker run -d -p "${port}:80" --name "nginx_$i" nginx }
-
-Task 3
-docker rm -f (docker ps -aq)
