@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-deployment
 spec:
-  replicas: 5
+  replicas: 10
   selector:
     matchLabels:
       app: go
@@ -17,3 +17,8 @@ spec:
           image: vitys11a/myapp:v1.12
           ports:
             - containerPort: 80
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxSurge: 1
+     maxUnavailable: 1
