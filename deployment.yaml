@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: go
+  template:
+    metadata:
+      labels:
+        app: go
+    spec:
+      containers:
+        - name: go
+          image: vitys11a/myapp:v1.12
+          ports:
+            - containerPort: 80

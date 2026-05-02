@@ -5,11 +5,12 @@ services:
     ports:
       - "8080:8080"
     environment:
-      APP_STORE: redis
-      APP_REDIS_URL: redis://redis:6379/0
+      APP_STORE: sqlite
+      APP_DB_PATH: /data/data.sql
+    volumes:
+      - appdata:/data
     depends_on:
-      redis:
-        condition: service_healthy
+      - redis
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/healthz')"]
       interval: 10s
@@ -20,11 +21,13 @@ services:
   redis:
     image: redis:7-alpine
     container_name: redis-store
+    volumes:
+      - redisdata:/data
+    command: redis-server --appendonly yes
     ports:
       - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
     restart: unless-stopped
+
+volumes:
+  appdata:
+  redisdata:

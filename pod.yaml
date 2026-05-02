@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: go-pod
+  labels:
+    app: go
+spec:
+  containers:
+    - name: go
+      image: vitys11a/myapp:v1.12
+      ports:
+        - containerPort: 80
